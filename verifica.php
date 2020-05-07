@@ -126,12 +126,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer  id = "footer" class="py-5 bg-dark">
-    <div class="container">
  
-    </div>
-    <!-- /.container -->
-  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
