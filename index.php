@@ -8,10 +8,10 @@
  <h1>Code generator</h1>
  
 <?php
-$server="localhost";
-$userid ="root";
-$Password = "password";
-$myDB = "codegeneration";$con = mysqli_connect($server,$userid,$Password,$myDB);if (mysqli_connect_errno()) {
+$server="eu-cdbr-west-03.cleardb.net";
+$userid ="b4ad1dccd80968";
+$Password = "c1df15bb";
+$myDB = "heroku_52adf9eb0ea4951";$con = mysqli_connect($server,$userid,$Password,$myDB);if (mysqli_connect_errno()) {
 # code...
 echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
