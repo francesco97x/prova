@@ -67,7 +67,7 @@ echo '<div class = "mainform">
   <div class="form-group">
   <form method="POST" action="">
     <label for="exampleFormControlSelect1">Id oggetto:</label>
-    <select name = "select3"  class="form-control" id="exampleFormControlSelect1"  style="width:230px;" >
+    <select name = "select3"  class="form-control" id="exampleFormControlSelect1"   " >
 	<option>ID oggetto </option>';
  
 $sqli = "SELECT id_object FROM objects";
