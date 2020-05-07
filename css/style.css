@@ -1,0 +1,37 @@
+ 
+.mainform {
+min-width: 100px;
+min-height: 500px;
+max-width: 300px;
+margin-left: 280px;
+float:left;
+ display:block;
+}
+
+#firstbutton {
+	margin-left: 78px;
+}
+
+#verifydiv {
+	 float:left;
+	 display:block;
+	 margin-left: 600px;
+}
+
+#distance {
+	margin-top:40px;
+}
+#distance2 {
+	margin-top:20px;
+}
+
+#secondbutton {
+	margin-top : 20px;
+	margin-left: 60px;
+}
+
+#footer {
+	 
+ 
+}
+ 
