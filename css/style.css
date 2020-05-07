@@ -1,12 +1,13 @@
+  @media (min-width: 1200px) {
+  
+ .mainform {
  
-.mainform {
-min-width: 100px;
-min-height: 500px;
-max-width: 300px;
 margin-left: 280px;
 float:left;
- display:block;
+ 
 }
+
+ }
 
 #firstbutton {
 	margin-left: 78px;
