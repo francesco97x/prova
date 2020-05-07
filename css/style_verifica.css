@@ -1,11 +1,16 @@
+  @media (min-width: 1200px) {
+  
  
- 
-
 #verifydiv {
 	 float:left;
 	 display:block;
 	 margin-left: 280px;
 }
+
+ } 
+ 
+
+ 
 
 #distance {
 	margin-top:40px;
