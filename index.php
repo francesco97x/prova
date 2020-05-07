@@ -64,7 +64,7 @@ echo ' </select>
 
  <div class="form-group">
     <label for="data">Data</label>
-    <input name = "date"  class="form-control" id="data" placeholder="GG-MM-AAAA">
+    <input name = "date"  class="form-control" id="data" placeholder="GG/MM/AAAA">
   </div>
      
 <?php
