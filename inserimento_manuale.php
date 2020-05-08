@@ -57,78 +57,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
         <div class="card mt-4">
            
           <div class="card-body">
-		  <a href="inserimento_manuale.php" style = "margin-left: 310px; "  >Inserisci manualmente</a>
-            <?php
- 
-echo '<div class = "mainform">
- 
-  <div class="form-group">
-  <form method="POST" action="">
-    <label for="exampleFormControlSelect1">ID oggetto:</label>
-    <select name = "select3"  class="form-control" id="exampleFormControlSelect1" >
-	<option>ID oggetto </option>';
- 
-$sqli = "SELECT id_object FROM objects";
-$result = mysqli_query($con, $sqli);
-while ($row = mysqli_fetch_array($result)) {
-echo '<option>'.$row['id_object'].'</option>';
-}
- 
-echo ' </select>
- 
-  </div>
-   ';
- 
-?>
-
-<?php
- 
-echo '<div class="form-group">
- 
-   <label for="exampleFormControlSelect1">Colore:</label>
-    <select name = "color" class="form-control" id="exampleFormControlSelect13">
-      <option>Colore</option>';
- 
-$sqli = "SELECT name_color FROM colors";
-$result = mysqli_query($con, $sqli);
-while ($row = mysqli_fetch_array($result)) {
-echo '<option>'.$row['name_color'].'</option>';
-}
- 
-echo ' </select>
-     
-  </div>
-   ';
- 
-?>
-
- <div class="form-group">
-    <label for="data">Data:</label>
-    <input name = "date"  class="form-control" id="data" placeholder="GG/MM/AAAA">
-  </div>
-     
-<?php
- 
-echo '<div class="form-group">
- 
-   <label for="exampleFormControlSelect1">Edizione:</label>
-    <select name = "edition" class="form-control" id="exampleFormControlSelect12">
-      <option>Edizione</option>';
- 
-$sqli = "SELECT edition FROM editions";
-$result = mysqli_query($con, $sqli);
-while ($row = mysqli_fetch_array($result)) {
-echo '<option>'.$row['edition'].'</option>';
-}
- 
-echo ' </select>
-    
-  </div>
-   ';
- 
-?>	 
-
-  <?php 
+		  <?php 
 
 $stampa = "  ";
 if(isset($_POST["submit"]))
@@ -183,7 +112,26 @@ $test_arr  = explode('/', $dateCode);
 }
  
  ?>
-  <?php
+		  <?php
+		  echo '<div class = "mainform">
+		   <form method="POST" action="">
+    <div class="form-group">
+    <label for="select3">ID oggetto:</label>
+    <input name = "select3"  class="form-control" id="exampleFormControlSelect1" placeholder = "ID oggetto">
+  </div>
+  <div class="form-group">
+    <label for="color">Colore:</label>
+    <input name = "color"  class="form-control" id="data" placeholder="Colore">
+  </div>
+  <div class="form-group">
+    <label for="date">Data:</label>
+    <input name = "date"  class="form-control" id="data" placeholder="GG/MM/AAAA">
+  </div>
+  <div class="form-group">
+    <label for="edition">Edizione:</label>
+    <input name = "edition"  class="form-control" id="data" placeholder="Edizione">
+  </div>';
+ 
 
 echo "<button id = 'firstbutton'  type='submit' name = 'submit' class='btn btn-primary'>Genera</button>
   </form> 
@@ -191,8 +139,11 @@ echo "<button id = 'firstbutton'  type='submit' name = 'submit' class='btn btn-p
     <label for='generatedcode'>Codice generato:</label>
     <input  class='form-control' id='generatedcode' value = '$stampa' />
   </div>
+ </div>
  </div> ";
  ?>
+  
+ 
           </div>
         </div>
        

@@ -1,4 +1,4 @@
-  @media (min-width: 1200px) {
+ @media (min-width: 1200px) {
   
  .mainform {
  
@@ -6,11 +6,12 @@ margin-left: 280px;
 float:left;
  
 }
-
+ 
  }
+ 
 
 #firstbutton {
-	margin-left: 78px;
+	margin-left: 65px;
 }
 
 #verifydiv {
@@ -33,6 +34,7 @@ float:left;
 
 #footer {
 	 
+  bottom:0 e position:fixed
  
 }
  

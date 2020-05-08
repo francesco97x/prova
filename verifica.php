@@ -45,7 +45,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
         <div class="list-group">
           <a href="index.php" class="list-group-item">Genera codice</a>
           <a href="verifica.php" class="list-group-item active">Verifica codice</a>
-          <a href="#" class="list-group-item">Storico</a>
+          <a href="storico.php" class="list-group-item">Storico</a>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -65,11 +65,11 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
  if(isset($_POST["submit2"]))
 {
 	$code= $_POST["code_input"];
-	$query = mysqli_query($con, "SELECT id_object, id_color, id_date, id_edition, id_generated FROM generated_code WHERE id_generated = '$code'  ");
+	$query = mysqli_query($con, "SELECT id_object, id_color, DATE_FORMAT( id_date , '%d/%m/%Y') as id, id_edition, id_generated FROM generated_code WHERE id_generated = '$code'  ");
 	$result3 = mysqli_fetch_array($query);
 	  $id_object2 = $result3['id_object'];
 	  $id_color2 = $result3['id_color'];
-	  $id_date2 = $result3['id_date'];
+	  $id_date2 = $result3['id'];
 	  $id_edition2 =  $result3['id_edition'];
 	}
  ?>
