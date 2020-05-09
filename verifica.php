@@ -67,10 +67,13 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	$code= $_POST["code_input"];
 	$query = mysqli_query($con, "SELECT id_object, id_color, DATE_FORMAT( id_date , '%d/%m/%Y') as id, id_edition, id_generated FROM generated_code WHERE id_generated = '$code'  ");
 	$result3 = mysqli_fetch_array($query);
+	if($result3){
 	  $id_object2 = $result3['id_object'];
 	  $id_color2 = $result3['id_color'];
 	  $id_date2 = $result3['id'];
 	  $id_edition2 =  $result3['id_edition'];
+	}
+	else echo 'codice inesistente';
 	}
  ?>
   
@@ -82,7 +85,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	<button id = "secondbutton"  type="submit" name = "submit2" class="btn btn-primary">Verifica</button>
 	</form>
 	 <div id = "distance" class="form-group">
-    <label for="ID_code2">ID oggetto</label>
+    <label for="ID_code2">ID oggetto:</label>
 	<?php
 		echo " <input  class='form-control' id='ID_code2' type='text' value='$id_object2'   /> ";
      ?>
@@ -91,14 +94,14 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
   </div>
   <div class="form-group">
   
-    <label for="color2">Colore</label>
+    <label for="color2">Colore:</label>
 	<?php
 		echo " <input  class='form-control' type='text' value='$id_color2' id = 'color2' /> ";
      ?>
   </div>
     
   <div class="form-group">
-    <label for="data2">Data</label>
+    <label for="data2">Data:</label>
 	<?php
      
 	echo " <input class= 'form-control' id= 'date2'   type='text' value='$id_date2'   /> ";
@@ -106,7 +109,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
   </div>
      
   <div class="form-group">
-    <label for="edition2">Edizione</label>
+    <label for="edition2">Edizione:</label>
 	<?php
      
 	echo " <input  class='form-control' id='edition2' type='text' value='$id_edition2'   /> ";

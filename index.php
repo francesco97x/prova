@@ -57,7 +57,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
         <div class="card mt-4">
            
           <div class="card-body">
-		  <a href="inserimento_manuale.php" style = "margin-left: 310px; "  >Inserisci manualmente</a>
+		  <a href="inserimento_manuale.php"  id ="inserisci"  >Inserisci manualmente</a>
             <?php
  
 echo '<div class = "mainform">
@@ -102,8 +102,8 @@ echo ' </select>
  
 ?>
 
- <div class="form-group">
     <label for="data">Data:</label>
+ <div class="form-group">
     <input name = "date"  class="form-control" id="data" placeholder="GG/MM/AAAA">
   </div>
      
