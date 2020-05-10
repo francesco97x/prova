@@ -89,7 +89,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		echo '
 	  
  <table    class="table table-bordered table-striped">
-  <thead id = "tabella">
+  <thead >
     <tr>
       <th>Codice generato</th>
       <th class="text-center">
