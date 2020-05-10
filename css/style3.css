@@ -16,9 +16,14 @@ label {
 
 #rettangolo{
 	min-height: 500px;
-	min-width: 800px;
+	min-width: 568px;
 }
 
 #cercabutton{
 	margin-left: 30px;
 }
+ 
+#tabella{
+	max-width:129px;
+}
+  

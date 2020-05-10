@@ -52,7 +52,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
       </div>
       <!-- /.col-lg-3 -->
 
-      <div class="col-lg-9">
+      <div class="col-lg-9" >
 
         <div class="card mt-4" id = "rettangolo">
            <?php
@@ -78,11 +78,18 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		$endDate = $_POST["trip-end"]; 
 		$sqli = "SELECT  id_object, id_color, DATE_FORMAT( id_date , '%d/%m/%Y') as id , id_edition, id_generated  FROM generated_code WHERE id_date between '$startDate' and '$endDate' ORDER BY id_date ASC ";
 		$result = mysqli_query($con, $sqli);
+		$sqli2 = "SELECT   count(id_generated)  FROM generated_code WHERE id_date between '$startDate' and '$endDate'" ;
+		$result2 = mysqli_query($con, $sqli2);
 		if(mysqli_num_rows($result) == 0)
 			echo ' Nessun codice è stato generato nelle date indicate';
 		else{
-		echo ' <table class="table table-bordered table-striped">
-  <thead>
+			$row2 = mysqli_fetch_array($result2);
+			echo '<b>Codici presenti: ' .$row2[0]. '</b>';
+			
+		echo '
+	  
+ <table    class="table table-bordered table-striped">
+  <thead id = "tabella">
     <tr>
       <th>Codice generato</th>
       <th class="text-center">
@@ -108,13 +115,13 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 			<td> '.$row["id_object"].'</td>
 			<td>  '.$row["id_color"].'</td>
 			<td>  '.$row["id"].'</td>
-			<td> '.$row["id_edition"].'</td>
+			<td id = "tabella"> '.$row["id_edition"].'</td>
 			</tr>';
 	 
 		}
 		echo '</tbody> 
   
-		</table>'; 
+		</table> '; 
 		}
 	   }
 	   ?>
