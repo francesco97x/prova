@@ -151,12 +151,12 @@ $test_arr  = explode('/', $dateCode);
 	  $codgen = mysqli_fetch_array($result3);
      if (mysqli_num_rows($result3) == 0){
 
-
 	$apro=fopen($nomefile,"r");
 	$leggo=fread($apro,filesize($nomefile));
 	fclose($apro);
 	$arrcodici= preg_split( '/[\s,]+/', $leggo); 
-	 
+	 $dimensione = count($arrcodici);
+	 $counter = 1;
 	 foreach ($arrcodici as $codice)
 	  {
 		  
@@ -169,9 +169,17 @@ $test_arr  = explode('/', $dateCode);
 			 mysqli_query($con,"INSERT INTO generated_code (id_object, id_color, id_date, id_edition, id_generated) VALUES ('$IDcode', '$colorCode', STR_TO_DATE('$dateCode','%d/%m/%Y') , '$editionCcode', '$codice')");
 			 break; 
 			 
-	    } 
+	    }
+		$counter++;
+			 
 	 
 	}
+	if( $counter > $dimensione){
+		echo '<script language="javascript">';
+		echo 'alert("tutti i codici sono stati utilizzati, aggiornare lista codici da generare")';
+		echo '</script>';
+	}
+		 
 	}
 	else{ 
 	$code2 = $codgen["id_generated"];
