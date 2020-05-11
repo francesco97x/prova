@@ -22,7 +22,9 @@
 $server="eu-cdbr-west-03.cleardb.net";
 $userid ="b4ad1dccd80968";
 $Password = "c1df15bb";
-$myDB = "heroku_52adf9eb0ea4951";$con = mysqli_connect($server,$userid,$Password,$myDB);if (mysqli_connect_errno()) {
+$myDB = "heroku_52adf9eb0ea4951";
+$con = mysqli_connect($server,$userid,$Password,$myDB);
+if (mysqli_connect_errno()) {
  
 echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
@@ -142,8 +144,12 @@ $nomefile="file.txt";
 $test_arr  = explode('/', $dateCode);
  if (count($test_arr) == 3) {
     if (checkdate($test_arr[1], $test_arr[0], $test_arr[2])) {
-        
-     
+       $sqli3 = "SELECT id_generated
+				FROM generated_code 
+				WHERE id_object = '$IDcode' AND id_color = '$colorCode' AND id_edition = '$editionCcode' and id_date = STR_TO_DATE('$dateCode','%d/%m/%Y') ";
+	  $result3 = mysqli_query($con, $sqli3); 
+	  $codgen = mysqli_fetch_array($result3);
+     if (mysqli_num_rows($result3) == 0){
 
 
 	$apro=fopen($nomefile,"r");
@@ -166,7 +172,14 @@ $test_arr  = explode('/', $dateCode);
 	    } 
 	 
 	}
- 
+	}
+	else{ 
+	$code2 = $codgen["id_generated"];
+		 echo "<script type='text/javascript'>alert('quadrupla già presente con codice : $code2');</script>";
+		 
+		 
+	
+		}
 	}
 	else {
 		echo '<script language="javascript">';
