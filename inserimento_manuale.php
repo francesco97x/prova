@@ -59,7 +59,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
           <div class="card-body">
 		  <?php 
 
-$stampa = "  ";
+ $stampa = "  ";
 if(isset($_POST["submit"]))
 {
  
@@ -71,15 +71,19 @@ $nomefile="file.txt";
 $test_arr  = explode('/', $dateCode);
  if (count($test_arr) == 3) {
     if (checkdate($test_arr[1], $test_arr[0], $test_arr[2])) {
-        
-     
-
+       $sqli3 = "SELECT id_generated
+				FROM generated_code 
+				WHERE id_object = '$IDcode' AND id_color = '$colorCode' AND id_edition = '$editionCcode' and id_date = STR_TO_DATE('$dateCode','%d/%m/%Y') ";
+	  $result3 = mysqli_query($con, $sqli3); 
+	  $codgen = mysqli_fetch_array($result3);
+     if (mysqli_num_rows($result3) == 0){
 
 	$apro=fopen($nomefile,"r");
 	$leggo=fread($apro,filesize($nomefile));
 	fclose($apro);
 	$arrcodici= preg_split( '/[\s,]+/', $leggo); 
-	 
+	 $dimensione = count($arrcodici);
+	 $counter = 1;
 	 foreach ($arrcodici as $codice)
 	  {
 		  
@@ -92,10 +96,25 @@ $test_arr  = explode('/', $dateCode);
 			 mysqli_query($con,"INSERT INTO generated_code (id_object, id_color, id_date, id_edition, id_generated) VALUES ('$IDcode', '$colorCode', STR_TO_DATE('$dateCode','%d/%m/%Y') , '$editionCcode', '$codice')");
 			 break; 
 			 
-	    } 
+	    }
+		$counter++;
+			 
 	 
 	}
- 
+	if( $counter > $dimensione){
+		echo '<script language="javascript">';
+		echo 'alert("tutti i codici sono stati utilizzati, aggiornare lista codici da generare")';
+		echo '</script>';
+	}
+		 
+	}
+	else{ 
+	$code2 = $codgen["id_generated"];
+		 echo "<script type='text/javascript'>alert('quadrupla già presente con codice : $code2');</script>";
+		 
+		 
+	
+		}
 	}
 	else {
 		echo '<script language="javascript">';
