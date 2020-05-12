@@ -10,8 +10,7 @@
   <!-- Bootstrap core CSS -->
  
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!-- Custom styles for this template -->
-  <link href="css/shop-item.css" rel="stylesheet">
+ 
  
  
 </head>
@@ -28,6 +27,25 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
  
 ?>
+   <script type="text/javascript">
+	function VoucherSourcetoPrint(source) {
+		return "<html><head><script>function step1(){\n" +
+				"setTimeout('step2()', 10);}\n" +
+				"function step2(){window.print();window.close()}\n" +
+				"</scri" + "pt></head><body onload='step1()'>\n" +
+				"<img src='" + source + "' /></body></html>";
+	}
+	function VoucherPrint(source) {
+		Pagelink = "about:blank";
+		var pwa = window.open(Pagelink, "_new");
+		pwa.document.open();
+		pwa.document.write(VoucherSourcetoPrint(source));
+		pwa.document.close();
+	}
+	
+	 
+ 
+</script>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -56,22 +74,24 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
         <div class="card mt-4" id = "rettangolo">
            <?php
-          echo ' <form method="POST" action="">
-		  <div  class="card-body">
-				<div id ="start_date"  style="float:left; display:block; >
-				<label for="start">Data iniziale:</label>
-				 <input type="date" id="start" name= "trip-start" value= "2020-05-01"  >	 
+		   $startDate = "2020-04-01";
+		   $endDate = "2020-05-01";
+          echo " <form method='POST' action=''>
+		  <div  class='card-body'>
+				<div id ='start_date'  style='float:left; display:block;' >
+				<label for='start'>Data iniziale:</label>
+				 <input type='date' id='start' name= 'trip-start' value= '$startDate'  >	 
 				</div>
  
          
 		 
-				<div id = "end_date" style="float:left; display:block;  >
-				<label for="start">Data finale:</label>
-				<input type="date" id="start" name="trip-end" value="2020-05-31"  >
+				<div id = 'end_date' style='float:left; display:block;'  >
+				<label for='start'>Data finale:</label>
+				<input type='date' id='start' name='trip-end' value='2020-05-31'  >
 				</div>
-			 <button id = "cercabutton" type="submit" name = "submit" class="btn btn-primary">Cerca</button>
+			 <button id = 'cercabutton' type='submit' name = 'submit' class='btn btn-primary'>Cerca</button>
         </div>
-		</form>';
+		</form>";
 		 
 	   if(isset($_POST["submit"])){
 		$startDate = $_POST["trip-start"];
@@ -89,7 +109,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		echo '
 	  
  <table    class="table table-bordered table-striped">
-  <thead >
+  <thead  >
     <tr>
       <th>Codice generato</th>
       <th class="text-center">
@@ -104,6 +124,9 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
       <th class="text-center">
         Edizione
       </th>
+	  <th>
+	  
+	  </th>
     </tr>
   </thead>
   <tbody>';
@@ -111,11 +134,20 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		while ($row = mysqli_fetch_array($result)) {
 			echo '
 			<tr>
-			<th class="text-nowrap" scope="row"   >  '.$row["id_generated"].'</th>
+			<th class="text-nowrap" scope="row"   >  '.$row["id_generated"].'
+			<div style="clear:both;"></div>
+			<a type="button5"  href="#" onclick="VoucherPrint(\'code/barcode.php?text='.$row["id_generated"].'&size=60&&print=true\'); return false;"   margin-top: 20px;>Stampa</a></th>
 			<td> '.$row["id_object"].'</td>
 			<td>  '.$row["id_color"].'</td>
 			<td>  '.$row["id"].'</td>
 			<td id = "tabella"> '.$row["id_edition"].'</td>
+			<td> 
+			 <form method="POST" action="">
+			<button type="button5" name = "delete" value = '.$row["id_generated"].' class="btn btn-secondary"  >Elimina</button>
+			
+			
+			</form>
+			</td>
 			</tr>';
 	 
 		}
@@ -125,7 +157,15 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 	   }
 	   ?>
- 
+ <?php
+  if(isset($_POST["delete"])){
+	  $deletingrow = $_POST["delete"];
+	  mysqli_query($con,"DELETE FROM generated_code WHERE id_generated = '$deletingrow' ");
+	   echo '<script language="javascript">';
+		echo 'alert("codice eliminato correttamente")';
+		echo '</script>';
+  }
+ ?>
       </div>
       <!-- /.col-lg-9 -->
 

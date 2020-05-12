@@ -10,8 +10,7 @@
   <!-- Bootstrap core CSS -->
  
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!-- Custom styles for this template -->
-  <link href="css/shop-item.css" rel="stylesheet">
+ 
  
  
 </head>
@@ -48,6 +47,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
           <a href="index.php" class="list-group-item active">Genera codice</a>
           <a href="verifica.php" class="list-group-item">Verifica codice</a>
           <a href="storico.php" class="list-group-item">Storico</a>
+		  
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -57,6 +57,7 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
         <div class="card mt-4">
            
           <div class="card-body">
+		  
 		  <?php 
 
  $stampa = "  ";
@@ -68,12 +69,10 @@ $colorCode=$_POST["color"];
 $dateCode=$_POST["date"];
 $editionCcode=$_POST["edition"];
 $nomefile="file.txt";
-$test_arr  = explode('/', $dateCode);
- if (count($test_arr) == 3) {
-    if (checkdate($test_arr[1], $test_arr[0], $test_arr[2])) {
+
        $sqli3 = "SELECT id_generated
 				FROM generated_code 
-				WHERE id_object = '$IDcode' AND id_color = '$colorCode' AND id_edition = '$editionCcode' and id_date = STR_TO_DATE('$dateCode','%d/%m/%Y') ";
+				WHERE id_object = '$IDcode' AND id_color = '$colorCode' AND id_edition = '$editionCcode' and id_date = '$dateCode'";
 	  $result3 = mysqli_query($con, $sqli3); 
 	  $codgen = mysqli_fetch_array($result3);
      if (mysqli_num_rows($result3) == 0){
@@ -93,7 +92,7 @@ $test_arr  = explode('/', $dateCode);
 	   	if (mysqli_num_rows($result) == 0) {
 		  
 		 $stampa = $codice;
-			 mysqli_query($con,"INSERT INTO generated_code (id_object, id_color, id_date, id_edition, id_generated) VALUES ('$IDcode', '$colorCode', STR_TO_DATE('$dateCode','%d/%m/%Y') , '$editionCcode', '$codice')");
+			 mysqli_query($con,"INSERT INTO generated_code (id_object, id_color, id_date, id_edition, id_generated) VALUES ('$IDcode', '$colorCode', '$dateCode', '$editionCcode', '$codice')");
 			 break; 
 			 
 	    }
@@ -115,22 +114,32 @@ $test_arr  = explode('/', $dateCode);
 		 
 	
 		}
-	}
-	else {
-		echo '<script language="javascript">';
-		echo 'alert("inserire una data valida nel formato GG/MM/AAAA")';
-		echo '</script>';
-	}
-}
- else {
-		echo '<script language="javascript">';
-		echo 'alert("inserire una data valida nel formato GG/MM/AAAA")';
-		echo '</script>';
-	}
+	 
+ 
+ 
 
 }
- 
+
  ?>
+  <script type="text/javascript">
+	function VoucherSourcetoPrint(source) {
+		return "<html><head><script>function step1(){\n" +
+				"setTimeout('step2()', 10);}\n" +
+				"function step2(){window.print();window.close()}\n" +
+				"</scri" + "pt></head><body onload='step1()'>\n" +
+				"<img src='" + source + "' /></body></html>";
+	}
+	function VoucherPrint(source) {
+		Pagelink = "about:blank";
+		var pwa = window.open(Pagelink, "_new");
+		pwa.document.open();
+		pwa.document.write(VoucherSourcetoPrint(source));
+		pwa.document.close();
+	}
+	
+	 
+ 
+</script>
 		  <?php
 		  echo '<div class = "mainform">
 		   <form method="POST" action="">
@@ -142,24 +151,36 @@ $test_arr  = explode('/', $dateCode);
     <label for="color">Colore:</label>
     <input name = "color"  class="form-control" id="data" placeholder="Colore">
   </div>
-  <div class="form-group">
-    <label for="date">Data:</label>
-    <input name = "date"  class="form-control" id="data" placeholder="GG/MM/AAAA">
-  </div>
+  
+   <label for="start">Data iniziale:</label>
+				<div  class="form-group" id ="start_date" >
+				 <input type="date" class = "form-control" id="datess" name= "date" value= "2020-05-01" >	 
+				</div>
+ 
   <div class="form-group">
     <label for="edition">Edizione:</label>
     <input name = "edition"  class="form-control" id="data" placeholder="Edizione">
   </div>';
  
 
-echo "<button id = 'firstbutton'  type='submit' name = 'submit' class='btn btn-primary'>Genera</button>
+echo "<button id = 'firstbutton'  type='submit' name = 'submit' class='btn btn-primary' >Genera</button>
   </form> 
     <div class='form-group'>
     <label for='generatedcode'>Codice generato:</label>
     <input  class='form-control' id='generatedcode' value = '$stampa' />
   </div>
- </div>
- </div> ";
+  ";
+  if(isset($_POST["submit"]))
+{
+ echo "
+  <div id = 'content'>
+  <img alt='testing' src='code/barcode.php?text=$stampa&size=60&&print=true' name = 'barcode'  />
+	
+  </div>";
+   echo "  <button type=\"button\" onclick=\"VoucherPrint('code/barcode.php?text=$stampa&size=60&&print=true'); return false;\" class=\"btn btn-secondary\">Stampa codice a barre</button>";
+}
+" </div> ";
+ 
  ?>
   
  

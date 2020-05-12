@@ -1,16 +1,14 @@
 <html>
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link href="css/style_verifica.css" rel="stylesheet"  >
 
   <title>Home</title>
 
   <!-- Bootstrap core CSS -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <!-- Custom styles for this template -->
-  <link href="css/shop-item.css" rel="stylesheet">
+ 
 
 </head>
 
@@ -76,7 +74,25 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	else echo 'codice inesistente';
 	}
  ?>
-  
+   <script type="text/javascript">
+	function VoucherSourcetoPrint(source) {
+		return "<html><head><script>function step1(){\n" +
+				"setTimeout('step2()', 10);}\n" +
+				"function step2(){window.print();window.close()}\n" +
+				"</scri" + "pt></head><body onload='step1()'>\n" +
+				"<img src='" + source + "' /></body></html>";
+	}
+	function VoucherPrint(source) {
+		Pagelink = "about:blank";
+		var pwa = window.open(Pagelink, "_new");
+		pwa.document.open();
+		pwa.document.write(VoucherSourcetoPrint(source));
+		pwa.document.close();
+	}
+	
+	 
+ 
+</script>
  <div  id = "verifydiv" class="form-group">
   <form method="POST" action="">
     <label for="data">Verifica codice:</label>
@@ -115,7 +131,21 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	echo " <input  class='form-control' id='edition2' type='text' value='$id_edition2'   /> ";
 	?>
   </div>
+  	<?php
+ if(isset($_POST["submit2"]))
+{
+	$code2= $_POST["code_input"];
+ echo "
+  <div id = 'content'2>
+  <img alt='testing' src='code/barcode.php?text=$code2&size=60&&print=true' name = 'barcode'  />
+	
+  </div>";
+   echo "  <button type=\"button\" onclick=\"VoucherPrint('code/barcode.php?text=$code2&size=60&&print=true'); return false;\" class=\"btn btn-secondary\">Stampa codice a barre</button>";
+}
+" </div> ";
+?>
   </div>
+  
           </div>
         </div>
        
