@@ -1,3 +1,6 @@
+body {
+  padding-top: 56px;
+}
 
 
  label {
@@ -16,7 +19,7 @@ label {
 
 #rettangolo{
 	min-height: 500px;
- 	min-width: 580px;
+	min-width: 568px;
 }
 
 #cercabutton{
